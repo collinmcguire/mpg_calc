@@ -1,5 +1,22 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  .container
+    h1 MPG Calc
+    .alert-info.alert.alert-dismissable.hidden
+      button(type='button', class='close', data-dismiss='alert', aria-hidden='true') &times;
+      p Your current MPG is <span class='mpg'><span>
+    form.form-inline(role='form')
+      .form-group
+        input(type='text', class='form-control', placeholder='Starting Milage', id='start_mile')
+      .form-group
+        input(type='text', class='form-control', placeholder='Ending Mileage', id='end_mile') 
+      br
+      br
+      .form-group
+        input(type='text', class='form-control', placeholder='Starting Fuel', id='start_fuel',)
+      .form-group
+        input(type='text', class='form-control', placeholder='Ending Fuel', id='end_fuel')
+      br
+      br
+      button(type='button', class='btn btn-lg btn-primary', id='calc') Calculate
