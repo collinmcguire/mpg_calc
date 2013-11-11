@@ -1,2 +1,2 @@
-html body .container{text-align:center}html body .container h1{padding-top:50px}html body .container form.form-inline .form-group{padding-right:5px}
+html body{padding-top:70px}html body .container{width:720px;text-align:center}html body .container h1{padding-top:50px}html body .container .panel form.form-inline .form-group{padding-right:5px}html body .container .panel form.form-inline button{margin-top:5px}
 /* This beautiful CSS-File has been crafted with LESS (lesscss.org) and compiled by simpLESS (wearekiss.com/simpless) */
