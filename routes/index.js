@@ -3,16 +3,18 @@
  * GET home page.
  */
 
- var title = 'MPG Calc';
+ var title = 'MPG Calc',
+	 response = 'Received it, thank you!';
 
-exports.index = function(req, res){
-  res.render('index', { title: title});
+exports.home = function(req, res){
+  	res.render('index', {title: title});
 };
 
-exports.view = function(req, res){
-	res.render('view', {title: titel});
+exports.add_vehicle = function(req, res){
+	res.render('add_vehicle', {title: title});
 };
 
-exports.vehicle = function(req, res){
-	console.log(req.body);
+exports.view_vehicle = function(req, res){
+	res.render('view_vehicle', {title: title});
 }
+

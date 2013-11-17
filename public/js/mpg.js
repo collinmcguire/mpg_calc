@@ -25,8 +25,8 @@ $(document).ready(function(){
 			}
 
 			this.send = function(){
-				$.post('/post/vehicle', stats, function(){
-					console.log('sent');
+				$.post('/api/v1/post/stats', stats, function(res){
+					console.log(res);
 				});
 			};
 		};
