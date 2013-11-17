@@ -4,7 +4,9 @@
  */
 
 var express = require('express');
-var site = require('./routes');
+var site = require('./routes/index.js');
+var vehicle = require('./routes/vehicle');
+var stats = require('./routes/stats')
 var http = require('http');
 var path = require('path');
 
@@ -26,9 +28,20 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.post('/post/vehicle', site.vehicle);
-app.get('/view', site.view);
-app.get('/', site.index);
+/* API */
+
+/* Vehicle */
+app.post('/api/v1/vehicles/vehicle/', vehicle.add);
+
+app.get('/api/v1/vehicles/vehicle/', vehicle.view)
+
+/* Stats */
+app.post('/api/v1/post/stats/', stats.view);
+
+/* Web Pages */
+app.get('/vehicles/vehicle/add', site.add_vehicle);
+app.get('/vehicles/vehicle/view', site.view_vehicle)
+app.get('/', site.home);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

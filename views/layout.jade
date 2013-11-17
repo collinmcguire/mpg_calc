@@ -1,11 +1,14 @@
 doctype 5
 html
-  head
-    title= title
-    link(rel='stylesheet', href='/css/bootstrap.min.css')
-    link(rel='stylesheet', href='/css/style.css')
-  body
-    block content
-  script(type='text/javascript', src='/js/jquery.min.js')
-  script(type='text/javascript', src='/js/bootstrap.min.js')
-  script(type='text/javascript', src='/js/mpg.js')
+   head
+     title= title
+     link(rel='stylesheet', href='/css/bootstrap.min.css')
+     link(rel='stylesheet', href='/css/style.css')
+     script(src='text/javascript', src='/js/jquery.min.js')
+     script(src='text/javascript', src='/js/bootstrap.min.js')
+   body
+    .container
+      nav.navbar.navbar-default.navbar-fixed-top(role='navigation')
+      .page-header
+        h1 MPG Calc.
+      block content
