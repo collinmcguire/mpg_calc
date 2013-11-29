@@ -1,0 +1,17 @@
+extends layout
+
+block content
+	script(type='text/javascript', src='/js/stats.js')
+	.panel.panel-default#stats
+		.panel-heading
+			h1.lead Stats in Database
+		.panel-body
+			table.table
+				thead
+					th #
+					th Year
+					th Make
+					th Model
+					th MPG
+					th Action
+				tbody 

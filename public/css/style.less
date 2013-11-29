@@ -1,24 +1,78 @@
 html{
 	body{
 		padding-top: 70px;
-		.container{
-			width: 720px;
-			text-align: center;
-			h1{
-				padding-top: 50px;
-			}
-			.panel{
-				.panel-body{
-				}
-				form.form-inline{
-					.form-group{
-						padding-right: 5px;
-					}
-					button{
-						margin-top: 5px;
+		header{
+			.container{
+				width: 730px;
+				nav{
+					margin-bottom: 25px;
+					h1{
+						text-align: center;
+						a{
+							color: rgb(51, 51, 51);
+						}
 					}
 				}
 			}
 		}
+		#body{
+			margin-top: 25px;
+			table.table{
+				caption{
+					text-align: center;
+				}
+			}
+			ul.list-group{
+				text-align: center;
+				max-width: 300px;
+			}
+			#info{
+					text-align: center;
+					form{
+						.form-group{
+							padding-right: 5px;
+							input[placeholder]{
+								text-align: center;
+							}
+						}
+					}
+				}
+			}
+			#vehicles{
+				.panel-heading{
+					h1{
+						&.lead{
+							text-align: center;
+						}
+					}
+				}
+				.panel-body{
+					table{
+						th{
+							text-align: center;
+						}
+						tbody{
+							a{
+								color: #333;
+							}
+						}
+						text-align: center;
+					}
+				}
+			}
+			.alert-info{
+				text-align: center;
+			}
+			#stats{
+				form.form-inline{
+					text-align: center;
+					.form-group{
+						padding: 5px 5px;
+					}
+					button{
+					}
+				}
+			}
+		}	
 	}
 }

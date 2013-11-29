@@ -1,25 +1,26 @@
 extends layout
 
 block content
+  script(type='text/javascript', src='/js/stats.js')
   .alert-info.alert.hidden
      p Your current MPG is <span class='mpg'><span>
-  .panel.panel-default.pull-left#info
+  .panel.panel-default.pull-left#stats
     .panel-heading
       h3.panel-title Vechicle Info
     .panel-body
       form.form-inline(role='form')
         .form-group
-         select(class='form-control', id='make')
-          option Ford
+          select(class='form-control', id='year')
+            option Year
+        .form-group
+          select(class='form-control', id='make')
+            option Make
         .form-group
           select(class='form-control', id='model')
-            option Fusion 
-        .form-group
-          select(class='form-control', id='year')
-            option 2014
+            option Model
         p.text-info
-        a(href='/vehicles/vehicle', class='text-info small') Don't see your vehicle?
-  .panel.panel-default.pull-right
+        a(href='/vehicles/vehicle/add/', class='text-info small') Don't see your vehicle?
+  .panel.panel-default.pull-right#stats
     .panel-heading
       h3.panel-title Vehicle Stats
     .panel-body
@@ -34,5 +35,4 @@ block content
         .form-group
           input(type='text', class='form-control', placeholder='Ending Fuel', id='end_fuel')
         br
-        button(type='button', class='btn btn-lg btn-primary', id='calc') Calculate
-    script(type='text/javascript', src='/js/mpg.js')
+        button(type='button', role='button', class='btn btn-lg btn-primary', id='calc') Calculate
