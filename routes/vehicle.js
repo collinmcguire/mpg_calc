@@ -31,7 +31,9 @@ exports.add = function(req, res){
 						'make': vehicle.make,
 						'model': vehicle.model, 
 						'years': [vehicle.year],
-						'tags': [vehicle.make, vehicle.model]
+						'tags': [vehicle.make, vehicle.model],
+						'date added': new Date(),
+						'log': [{'date': new Date(), 'action': 'add', 'what': 'vehicle'}]
 					}, function(err, docs){
 						console.log('Added: ');
 						console.log(docs);
@@ -61,7 +63,12 @@ exports.add = function(req, res){
 							},
 							{
 								$push: {
-									'years': vehicle.year
+									'years': vehicle.year,
+									'log': {
+										'date': new Date(),
+										'action': 'added',
+										'what': 'a new year'
+									}
 								}
 							}, function(err, docs){
 								if (err) throw err;
@@ -69,20 +76,6 @@ exports.add = function(req, res){
 					} // End if..then...
 				} // End if...then..
 			}); // End adding to vehicles
-
-			db.collection('makes').find({'make': vehicle.make}).toArray(function(err, docs){
-				if(docs == ''){
-					console.log('Found nothing');
-					db.collection('makes').insert({
-						'make': vehicle.make
-					}, function(err, docs){
-						console.log('Added ' + docs);
-					});
-				} else {
-					console.log('This vehicles make already exists');
-					//console.log(docs);
-				}
-			}) // End adding to makes
 		}); // End mongo.connect();
 }; // End .add();
 

@@ -3,8 +3,9 @@ extends layout
 block content
   .container#content
     script(type='text/javascript', src='/js/vehicle.js')
-    .alert-info.alert.hidden
-       p Your current MPG is <span class='mpg'><span>
+    script(type='text/javascript', src='/js/stats.js')
+    .alert-info.alert.hidden#alert
+       p Your current MPG is <span id="mpg", class='mpg'><span>
     .panel.panel-default.pull-left#stats
       .panel-heading
         h3.panel-title Vechicle Info

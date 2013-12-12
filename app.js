@@ -41,10 +41,10 @@ app.get('/api/v1/vehicles/models/*', vehicle.models);
 
 /* Stats */
 app.post('/api/v1/stats/add/', stats.add);
-app.post('/api/v1/stats/delete/', stats.delete);
+/*app.post('/api/v1/stats/delete/', stats.delete);
 app.get('/api/v1/stats/view/:id', stats.view_single);
 app.get('/api/v1/stats/view/', stats.view_multi);
-
+*/
 /***** Web Pages ******/
 
 app.get('/stats/view/', site.view_stats);
