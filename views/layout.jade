@@ -21,6 +21,11 @@ html
                 li
                   a(href='/') Home
                 li.dropdown
+                  a.dropdown-toggle(href='#', data-toggle='dropdown') Resources <b class='caret'></b>
+                  ul.dropdown-menu
+                    li
+                      a(href='/search/') Search
+                li.dropdown
                   a.dropdown-toggle(href='#', data-toggle='dropdown') Admin <b class='caret'></b>
                   ul.dropdown-menu 
                     li
@@ -29,5 +34,5 @@ html
                       a(href='/vehicles/vehicle/add/') Add vehicle
                     li
                       a(href='/vehicles/view/') View vehicles
-        .container#body
+      .container#body
          block content

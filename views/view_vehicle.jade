@@ -1,10 +1,6 @@
-include layout
+extends layout
 
 block content
-     script(type='text/javascript', src='/js/vehicle.js')
-	.container#body
-		.panel.panel-default
-			.panel-heading
-				h3= vehicle[0].year + ' ' + vehicle[0].make + ' ' + vehicle[0].model + ' - AVG MPG'
-			.panel-body
-				p.lead Test
+	script(type='text/javascript', src='/js/vehicle.js')
+	.container#chart
+		.page-header(id='#{id}')

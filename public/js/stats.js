@@ -3,8 +3,6 @@ String.prototype.capitalize = function(){
 }
 
 $(document).ready(function(){
-	var dateTime = new Date();
-
 	var stats = {
 		statLine: {
 			s_mile: '',
@@ -19,29 +17,6 @@ $(document).ready(function(){
 			}
 		},
 
-		fill: function(){
-
-			$.get('/api/v1/stats/years/', function(res){
-				for(var i=0;i<res.length;i++){
-					$('#year').append('<option>'+res[i]+'</option>');
-				}
-			});
-
-			$.get('/api/v1/stats/makes/', function(res){
-				for(var i=0;i<res.length;i++){
-					res[i] = res[i].capitalize();
-					$('#make').append('<option>'+res[i]+'</option>')
-				}
-			});
-
-			$.get('/api/v1/stats/models/', function(res){
-				for(var i=0;i<res.length;i++){
-					res[i] = res[i].capitalize();
-					$('#model').append('<option>'+res[i]+'</option>')
-				}
-			});
-		},
-
 		set: function(statLine){
 			statLine.s_mile= $('#start_mile').val();
 			statLine.e_mile= $('#end_mile').val();
@@ -51,7 +26,7 @@ $(document).ready(function(){
 			statLine.vehicle.make= $('#make').val();
 			statLine.vehicle.model= $('#model').val();
 			statLine.vehicle.year= $('#year').val();
-			statLine.date = dateTime;
+			statLine.date = new Date();
 		}, 
 
 		show: function(mpg){
@@ -105,13 +80,10 @@ $(document).ready(function(){
 
 	switch(window.location.pathname){
 
-		case '/' :
-			stats.fill();
-			break;
-
 		case '/stats/view/':
 			stats.viewMulti();	
 			break;	
+			
 	}
 
 	$(document).on('click', 'button',  function(){
