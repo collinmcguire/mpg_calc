@@ -21,9 +21,9 @@ $(document).ready(function(){
 
 		makes: function(){
 
-			$.get('/api/v1/vehicles/makes/', function(res){
-				for(var i=0; i<res.length;i++){
-					$('#make').append('<option>' + res[i].make.capitalize() + '</option>');
+			$.get('/api/v1/vehicles/makes/', function(makes){
+				for(var i=0; i<makes.length;i++){
+					$('#make').append('<option>' + makes[i].capitalize() + '</option>');
 				}
 			});
 
@@ -32,9 +32,9 @@ $(document).ready(function(){
 		models: function(make){
 			var html;
 
-			$.get('/api/v1/vehicles/models/', {tags: make}, function(res){
-				for(var i=0; i<res.length; i++){
-					html += '<option>' + res[i].model.capitalize() + '<option>';
+			$.get('/api/v1/vehicles/models/', {make: make}, function(models){
+				for(var i=0; i<models.length; i++){
+					html += '<option>' + models[i].capitalize() + '<option>';
 				}
 
 				$('#model').html(html);
@@ -43,10 +43,14 @@ $(document).ready(function(){
 
 		years: function(make, model){
 			var html ;
-			$.get('/api/v1/vehicles/years/', {tags: [make.toLowerCase(), model.toLowerCase()] }, function(res){
-				for(var i=0; i<res[0].years.length; i++){
-						html += '<option>' + res[0].years[i] + '</option>';
+			$.get('/api/v1/vehicles/years/', {
+				"make": make.toLowerCase(), 
+				"model": model.toLowerCase()
+			}, function(years){
+				for(var i=0; i<years.length; i++){
+						html += '<option>' + years[i] + '</option>';
 				}
+
 				$('#year').html(html);
 			});
 		},

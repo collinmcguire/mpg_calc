@@ -18,7 +18,24 @@ exports.add = function(req, res){
 	console.log(vehicle);
 
 	// Update vehicle's mpg then send it back
-	vehicle.stats.mpg = (vehicle.stats.endMiles - vehicle.stats.startMiles) / (vehicle.stats.startFuel - vehicle.stats.endFuel);
-	console.log(vehicle);
+	vehicle.stats.mpg = (vehicle.stats.endMile - vehicle.stats.startMile) / (vehicle.stats.startFuel - vehicle.stats.endFuel);
 	res.send(''+vehicle.stats.mpg);
+
+	mongo.connect('mongodb://23.21.228.204/mpg_calc', function(err, db){
+		db.collection("vehicles").update({
+			"make": vehicle.make.toLowerCase(),
+			"model": vehicle.model.toLowerCase()
+		},{
+			$push:{
+				"stats": {
+				"mpg": vehicle.stats.mpg, 
+				"year": vehicle.year,
+				"date": new Date()
+				}
+			}
+		}, function(err, docs){
+			if(err) throw err;
+			console.log(docs);
+		});
+	});
 };

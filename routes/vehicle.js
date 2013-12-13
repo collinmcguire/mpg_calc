@@ -1,4 +1,3 @@
-
 /*
 
 Vehicle API 
@@ -9,6 +8,30 @@ var received = 'Received the data, thank you!',
 	mongo = require('mongodb'),
 	color = require('color'),
 	format = require('util').format;
+
+var findMatch = function(results, test){
+	var data = [];
+
+	for(var i=0;i<results.length;i++){
+		var match;
+
+		for(var j=0;j<data.length;j++){
+			if(results[i][test] == data[j]){
+				match = true;
+				break;
+			}
+		}
+
+		if(match){
+			break;
+		} else{
+			data.push(results[i][test]);
+		}
+	}
+
+	//res.send(data);
+	return data
+};
 
 exports.add = function(req, res){
 	res.send(received);
@@ -33,6 +56,7 @@ exports.add = function(req, res){
 						'years': [vehicle.year],
 						'tags': [vehicle.make, vehicle.model],
 						'date added': new Date(),
+						'stats': [],
 						'log': [{'date': new Date(), 'action': 'add', 'what': 'vehicle'}]
 					}, function(err, docs){
 						console.log('Added: ');
@@ -132,32 +156,33 @@ exports.makes = function(req, res){
 	mongo.connect('mongodb://23.21.228.204/mpg_calc', function(err, db){
 		if(err) throw err; 
 
-		db.collection('makes').find({}).toArray(function(err, results){
-			console.log(results);
-			res.send(results);
+		db.collection('vehicles').find().toArray(function(err, results){
+			var makes = findMatch(results, 'make');
+			res.send(makes);
 		});
 	});
 };
 
 exports.models = function(req, res){
-	var make = req.param('tags').toLowerCase();
+	var make = req.param('make').toLowerCase();
 
 	console.log('Searching for models');
 
 	mongo.connect('mongodb://23.21.228.204/mpg_calc', function(err, db){
 		if(err) throw err; 
 
-		db.collection('vehicles').find({tags: make}).toArray(function(err, results){
-			console.log(results);
-			res.send(results);
+		db.collection('vehicles').find({make: make}).toArray(function(err, results){
+			var models = findMatch(results, 'model');
+			res.send(models);
 		});
 	});
 };
 
 exports.years = function(req, res){
-	var tags = req.param('tags');
-
-		console.log(tags);
+	var query = {
+		"make": req.param("make"), 
+		"model": req.param("model")
+	};
 
 	console.log('Looking for model years');
 
@@ -165,10 +190,9 @@ exports.years = function(req, res){
 		if(err) throw err; 
 
 		db.collection('vehicles')
-			.find({tags: tags})
-			.sort({'years.value': -1 })
+			.find(query)
 			.toArray(function(err, results){
-			res.send(results);
+				res.send(results[0].years);
 		});
 	});
 };
