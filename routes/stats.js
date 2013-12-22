@@ -21,10 +21,11 @@ exports.add = function(req, res){
 	vehicle.stats.mpg = (vehicle.stats.endMile - vehicle.stats.startMile) / (vehicle.stats.startFuel - vehicle.stats.endFuel);
 	res.send(''+vehicle.stats.mpg);
 
-	mongo.connect('mongodb://23.21.228.204/mpg_calc', function(err, db){
+	mongo.connect('mongodb://127.0.0.1/mpg_calc', function(err, db){
 		db.collection("vehicles").update({
 			"make": vehicle.make.toLowerCase(),
-			"model": vehicle.model.toLowerCase()
+			"model": vehicle.model.toLowerCase(),
+			"year": parseFloat(vehicle.year)
 		},{
 			$push:{
 				"stats": {

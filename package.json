@@ -1,5 +1,5 @@
 {
-  "name": "application-name",
+  "name": "mpg_calc",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -8,5 +8,28 @@
   "dependencies": {
     "express": "3.4.2",
     "jade": "*"
+  },
+  "description": "mpg_calc ========",
+  "main": "app.js",
+  "directories": {
+    "test": "tests"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/collinmcguire/mpg_calc.git"
+  },
+  "keywords": [
+    "mpg",
+    "calc",
+    "miles",
+    "per",
+    "gallon",
+    "calculator"
+  ],
+  "author": "Collin McGuire",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/collinmcguire/mpg_calc/issues"
   }
 }

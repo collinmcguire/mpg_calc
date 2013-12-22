@@ -9,6 +9,7 @@ var vehicle = require('./routes/vehicle');
 var stats = require('./routes/stats')
 var http = require('http');
 var path = require('path');
+var	lessMiddleware = require('less-middleware');
 
 var app = express();
 
@@ -33,7 +34,8 @@ if ('development' == app.get('env')) {
 /* Vehicle */
 app.post('/api/v1/vehicles/vehicle/add/', vehicle.add);
 app.post('/api/v1/vehicles/vehicle/delete/', vehicle.delete);
-app.get('/api/v1/vehicles/vehicle/view/:id/', vehicle.view_single);
+app.get('/api/v1/vehicles/vehicle/view/:id', vehicle.view_single);
+app.get('/api/v1/vehicles/vehicle/view/', vehicle.view);
 app.get('/api/v1/vehicles/view/', vehicle.view_multi);
 app.get('/api/v1/vehicles/makes/', vehicle.makes);
 app.get('/api/v1/vehicles/years/*', vehicle.years);
@@ -48,7 +50,6 @@ app.get('/api/v1/stats/view/', stats.view_multi);
 /***** Web Pages ******/
 
 app.get('/stats/view/', site.view_stats);
-app.get('/search/', site.search);
 app.get('/vehicles/vehicle/add/', site.add_vehicle);
 app.get('/vehicles/vehicle/view/:id', site.view_vehicle);
 app.get('/vehicles/view/', site.view_vehicles)
