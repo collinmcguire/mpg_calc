@@ -5,7 +5,7 @@ Vehicle API
 */
 
 var received = 'Received the data, thank you!',
-	host = 'mongodb://127.0.0.1/mpg_calc',
+	host = 'mongodb://localhost/mpg_calc',
 	mongo = require('mongodb'),
 	color = require('color'),
 	format = require('util').format;
