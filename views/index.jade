@@ -1,12 +1,13 @@
 extends layout
 
 block content
-  .container#content
+  #content
     script(type='text/javascript', src='/js/vehicle.js')
     script(type='text/javascript', src='/js/stats.js')
     .alert-info.alert.hidden#alert
-       p Your current MPG is <span id="mpg"><span>
-    .panel.panel-default.pull-left#stats
+       p You're getting <span id="mpg"></span>
+       p View other users MPG <a href='' id="vehicleID"><span class='glyphicon glyphicon-info-sign'></span></a>
+    .panel.panel-default.pull-left
       .panel-heading
         h3.panel-title Vechicle Info
       .panel-body
@@ -22,7 +23,7 @@ block content
               option Year
           p.text-info
           a(href='/vehicles/vehicle/add/', class='text-info small') Don't see your vehicle?
-    .panel.panel-default.pull-right#stats
+    .panel.panel-default.pull-right
       .panel-heading
         h3.panel-title Vehicle Stats
       .panel-body

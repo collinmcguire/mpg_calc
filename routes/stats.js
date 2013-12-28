@@ -24,7 +24,8 @@ exports.add = function(req, res){
 	mongo.connect('mongodb://localhost/mpg_calc', function(err, db){
 		db.collection("vehicles").update({
 			"make": vehicle.make.toLowerCase(),
-			"model": vehicle.model.toLowerCase()
+			"model": vehicle.model.toLowerCase(),
+			"year": parseFloat(vehicle.year)
 		},{
 			$push:{
 				"stats": {

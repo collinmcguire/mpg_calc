@@ -2,9 +2,7 @@ String.prototype.capitalize = function(){
 	return this[0].toUpperCase() + this.slice(1).toLowerCase();
 }
 
-$(document).ready(function(){
-
-	var vehicles = { 
+var vehicles = { 
 		add: function(){
 			var vehicle = {
 				year: $('#year').val(),
@@ -14,7 +12,6 @@ $(document).ready(function(){
 			};
 
 			$.post('/api/v1/vehicles/vehicle/add/', vehicle, function(res){
-				console.log(res);
 				window.location.href= '/';
 			});
 		},
@@ -46,12 +43,20 @@ $(document).ready(function(){
 			$.get('/api/v1/vehicles/years/', {
 				"make": make.toLowerCase(), 
 				"model": model.toLowerCase()
-			}, function(years){
-				for(var i=0; i<years.length; i++){
-						html += '<option>' + years[i] + '</option>';
+			}, function(data){
+				for(var i=0; i<data.years.length; i++){
+						html += '<option>' + data.years[i] + '</option>';
 				}
 
 				$('#year').html(html);
+
+				$("#vehicleID").attr('href', data.id);	
+			});
+		},
+
+		id: function(vehicle){
+			$.get('/api/v1/vehicles/vehicle/view/', {"vehicle":  vehicle}, function(vehicle){
+				$("#vehicleID").attr('href', "/vehicles/vehicle/view/"+vehicle._id);
 			});
 		},
 
@@ -63,7 +68,7 @@ $(document).ready(function(){
 										'<td id="number">' + (i+1)  + '</td>' + 
 										'<td id="make">' + data[i].make.capitalize() + '</td>' + 
 										'<td id="model">' + data[i].model.capitalize() + '</td>' +
-										'<td id="years">' + data[i].years + '</td>'+ 
+										'<td id="years">' + data[i].year + '</td>'+ 
 										'<td>' + 
 										'<button type="button" class="btn btn-default btn-xs"><a href="/vehicles/vehicle/view/' + data[i]._id + '"><span id="info" class="glyphicon glyphicon-info-sign"></span></a></button>' +
 										'<button type="button" id="delete" class="btn btn-default btn-xs" href="'+ data[i]._id + '" ><span class="glyphicon glyphicon-trash"></span></button>' + 
@@ -76,26 +81,30 @@ $(document).ready(function(){
 
 		vehicle: function(){
 			var id = $('.page-header').attr('id'),
-				url = '/api/v1/vehicles/vehicle/view/'+id+'/';
+				url = '/api/v1/vehicles/vehicle/view/'+id+'/',
+				mpg = 0, 
+				avg = 0;
 
 			$.get(url, function(res){
-				$('.page-header').prepend('<h3>'+res[0].make.capitalize()+' '+res[0].model.capitalize()+'</h3>');
-				
-				for(var i=0;i<res[0].years.length;i++){
-					$('#chart').append(
-						'<div class="panel panel-default">'+ 
-							'<div class="panel-heading">'+
-								'<h4 class="pull-left">'+res[0].years[i]+ '- ' + '</h4>' + 
-								'<h4>'+
-								'<span class="label label-default pull-left">'+'0'+'</span> MPG' +
-								'</h4>'+
-							'</div>'+ 
-							'<div class="panel-body">'+ 
-							'</div>'+
-						'</div>'
-					);
-				}
-			})
+				$('.page-header').prepend('<h3>'+ 
+					res[0].make.capitalize()+ ' ' +
+					res[0].model.capitalize()+ ' ' + 
+					'<small>'+ res[0].year + ' </small>' + 
+					'<span class="label label-default" id="mpg"> MPG</span>'+
+					'</h3>'
+				);
+
+				for(var i=0;i<res[0].stats.length;i++){
+					mpg = mpg + parseFloat(res[0].stats[i].mpg);
+				}	
+
+				avg = mpg / res[0].stats.length;
+
+				$("#mpg").prepend(avg);
+		
+				updateMPG(avg);
+
+			});
 		},
 
 		delete: function(that){
@@ -104,12 +113,12 @@ $(document).ready(function(){
 			var data = { id: $(that).attr('href') };
 
 			$.post('/api/v1/vehicles/vehicle/delete/', data, function(res){
-				console.log(res);
 			});
 
-		}
+		},
 	};
-
+	
+$(document).ready(function(){
 	switch( $('title').text() ){
 		case 'home':
 			vehicles.makes();
@@ -137,6 +146,7 @@ $(document).ready(function(){
 	$('#make').on('click', function(){		
 		switch($(this).val()){
 			case 'Make':
+				alert("Select a make");
 				break;
 
 			default:
@@ -149,10 +159,25 @@ $(document).ready(function(){
 	$('#model').on('click', function(){
 		switch($(this).val()){
 			case 'Model': 
-				console.log('Select a model');
+				alert("Select a model");
+				break;
 			default: 
-				console.log('Finding ' + $(this).val() + 'model years');
 				vehicles.years($('#make').val(), $('#model').val());
+		}
+	});
+
+	$("#year").on("click", function(){
+		switch($(this).val()){
+			case "Year":
+				alert("Select a year");
+			default: 
+				var vehicle = {
+					"make": $("#make").val().toLowerCase(), 
+					"model": $("#model").val().toLowerCase(), 
+					"year": parseFloat($("#year").val())
+				};
+
+				vehicles.id(vehicle)
 		}
 	});
 
