@@ -5,19 +5,19 @@ updateMPG = function(mpg){
 		case mpg<=19:
 			$("#mpg").removeClass();
 			$("#mpg").addClass("label label-danger");
-			$("#mpg").html(mpg + " MPG");
+			$("#mpg").html(parseInt(mpg) + ' MPG');
 			$("#alert").removeClass("hidden");
 			break;
 		case mpg<=25 && mpg>=20:
 			$("#mpg").removeClass();
 			$("#mpg").addClass("label label-warning");
-			$("#mpg").html(mpg + " MPG");
+			$("#mpg").html(parseInt(mpg) + ' MPG');
 			$("#alert").removeClass("hidden");
 			break;
 		case mpg>=26:
 			$("#mpg").removeClass();
 			$("#mpg").addClass("label label-success");
-			$("#mpg").html(mpg + ' MPG');
+			$("#mpg").html(parseInt(mpg) + ' MPG');
 			$("#alert").removeClass("hidden");
 			break;
 		default:

@@ -6,8 +6,11 @@
     "start": "node app.js"
   },
   "dependencies": {
-    "express": "3.4.2",
-    "jade": "*"
+    "express": "~3.4.2",
+    "jade": "~1.0.0",
+    "stylus": "~0.41.3",
+    "less": "~1.5.1",
+    "mongodb": "~1.3.23"
   },
   "description": "mpg_calc ========",
   "main": "app.js",

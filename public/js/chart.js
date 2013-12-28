@@ -3,9 +3,8 @@ $(document).ready(function(){
 		y = canvas.position().left,
 		x = canvas.position().top,
 		width = canvas.width()-50,
-		height = canvas.height()-25,
-		data = [20,25,23,26,20,26];
-
+		height = canvas.height()-25;
+		
 	var paper = Raphael("chart", width, height);
 
 	function Line(x,y,x2,y2,color){
@@ -19,7 +18,7 @@ $(document).ready(function(){
 
 	function Circle(x,y,rx,ry,color){
 		var circle = paper.ellipse(x,y,rx,ry);
-		paper.text(x,y-25,height-y);
+		paper.text(x,y-25,height-y+" mpg");
 
 		circle.attr({
 			"fill": color,
@@ -28,19 +27,19 @@ $(document).ready(function(){
 
 		circle.hover(function(){
 			circle.attr({
-				"rx": '7',
-				"ry":'7'
+				"rx": rx+3,
+				"ry": ry+3
 				})
 			}, function(){
 				circle.attr({
-					"rx": '3',
-					"ry": '3'
+					"rx": rx,
+					"ry": ry
 				})
 			});
 
 	}
 
-	function drawDates(){
+	function drawDates(data){
 		var distance = width / (data.length+1);
 	
 		for(var i=0,count=1;i<data.length;i++){
@@ -52,7 +51,7 @@ $(document).ready(function(){
 		}
 	}
 
-	function drawValues(){
+	function drawValues(data){
 		var distance = height / (data.length+1);
 
 		for(var i=0, count=data.length;i<data.length;i++){
@@ -68,52 +67,50 @@ $(document).ready(function(){
 	}
 
 	function plotValues(avg){
-		var distance = width / (data.length+1),
+		var distance = width / (avg.length+1),
 			color;
 
-		switch(true){
-			case avg<=19:
+		for(var i=0, count=1;i<avg.length;i++){
+			switch(true){
+			case avg[i]<=19:
 				color = '#d9534f';
 				break;
-			case avg<=25 && avg>=20:
+			case avg[i]<=25 && avg>=20:
 				color = '#f0ad4e';
 				break;
-			case avg>=26:
+			case avg[i]>=26:
 				color = '#5cb85c';
 				break;
 			default:
 				console.log("Try again");
 		}
-
-		for(var i=0, count=1;i<data.length;i++){
-			var circle = new Circle( (distance*count),height-data[i],3,3,color);
+			var circle = new Circle( (distance*count),height-avg[i],5,5,color);
 			count++;
 		}
 	}
 
-	function connectDots(){
-		var distance = width / (data.length+1);
+	function connectDots(avg){
+		var distance = width / (avg.length+1);
 
-		for(var i=0,count=1;i<data.length;i++){
-			var line = new Line((distance*count),height-data[i],(distance*(count+1)),height-data[i+1], '#333');
+		for(var i=0,count=1;i<avg.length;i++){
+			var line = new Line((distance*count),height-avg[i],(distance*(count+1)),height-avg[i+1], '#333');
 			count++;
 		}
 
 	}
 
 	function avg(callback){
-		var mpg = 0,
+		var mpg = [],
 			id = $(".page-header").attr("id"),
 			avg = null, 
 			url = '/api/v1/vehicles/vehicle/view/'+id+'/';
 
 		$.get(url, function(res){
 			for(var i=0;i<res[0].stats.length;i++){
-				mpg = mpg + parseFloat(res[0].stats[i].mpg);
+				mpg.push(parseFloat(res[0].stats[i].mpg));
 			}	
 
-			avg = mpg / res[0].stats.length;	
-			callback(avg);
+			callback(mpg);
 		});
 	}
 
@@ -122,12 +119,10 @@ $(document).ready(function(){
 		var hoz = Line(0,height,width,height,"#333");
 	}
 
-	constructGraph();
-
 	avg(function(avg){
-		plotValues(avg);
-	});
-
-	connectDots();
+			constructGraph();
+			connectDots(avg);
+			plotValues(avg);
+		});
 });
 
