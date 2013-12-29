@@ -5,10 +5,11 @@ Vehicle API
 */
 
 var received = 'Received the data, thank you!',
-	host = 'mongodb://process.env.MONGOLAB_URI',
+	host = process.env.MONGOLAB_URI,
 	mongo = require('mongodb'),
 	color = require('color'),
 	format = require('util').format;
+console.log(host);
 
 var findMatch = function(results, test){
 	var data = [];
