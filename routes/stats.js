@@ -8,6 +8,7 @@ in within each method.
 */
 
 var received = 'Received the data, thank you!',
+	host = process.env.MONGOLAB_URI,
 	mongo = require('mongodb');
 
 exports.add = function(req, res){
@@ -21,7 +22,7 @@ exports.add = function(req, res){
 	vehicle.stats.mpg = (vehicle.stats.endMile - vehicle.stats.startMile) / (vehicle.stats.startFuel - vehicle.stats.endFuel);
 	res.send(''+vehicle.stats.mpg);
 
-	mongo.connect('mongodb://localhost/mpg_calc', function(err, db){
+	mongo.connect(host, function(err, db){
 		db.collection("vehicles").update({
 			"make": vehicle.make.toLowerCase(),
 			"model": vehicle.model.toLowerCase(),
