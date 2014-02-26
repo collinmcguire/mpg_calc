@@ -1,17 +1,19 @@
 extends layout
 
 block content
-  .panel.panel-default#info
-    .panel-heading
-      h3.panel-title Vehicle Info
-    .panel-body
-      form.form-inline(role='form')
-        .form-group
-          input(type='text', placeholder='Year', value='', id='year', name='year')
-        .form-group
-          input(type='text', placeholder='Make', value='', id='make', name='make')
-        .form-group
-          input(type='text', placeholder='Model', value='', id='model', name='model')
-        .form-group
-          button(type='button', role='button', class='btn btn-primary btn-md', id='add') Add
-  script(type='text/javascript', src='/js/vehicle.js')
+	.row
+		.col-xs-12.col-md-12.col-lg-6
+			.panel.panel-default#info
+				.panel-heading
+					h3.panel-title Vehicle Info
+				.panel-body
+					form(role='form')
+						.form-group
+							input(type='text', placeholder='Year', value='', id='year', name='year')
+						.form-group
+							input(type='text', placeholder='Make', value='', id='make', name='make')
+						.form-group
+							input(type='text', placeholder='Model', value='', id='model', name='model')
+						.form-group
+							button(type='button', role='button', class='btn btn-primary btn-md', id='add') Add
+	script(type='text/javascript', src='/js/vehicle.js')

@@ -52,7 +52,7 @@ app.get('/api/v1/stats/view/', stats.view_multi);
 app.get('/stats/view/', site.view_stats);
 app.get('/vehicles/vehicle/add/', site.add_vehicle);
 app.get('/vehicles/vehicle/view/:id', site.view_vehicle);
-app.get('/vehicles/view/', site.view_vehicles)
+app.get('/vehicles/view/', site.view_vehicles);
 app.get('/', site.home);
 
 http.createServer(app).listen(app.get('port'), function(){

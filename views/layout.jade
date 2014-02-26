@@ -2,36 +2,32 @@ doctype html
 html
 	head
 		title= title
-		link(rel='stylesheet', href='/css/style.css')
+		meta(name="viewport" content="width=device-width,initial-scale=1")
+		<!--link(rel='stylesheet', href='/css/style.css')-->
+		link(rel="stylesheet", type="text/css", href="/css/bootstrap.min.css")
 		script(type='text/javascript', src='/js/jquery.min.js')
 		script(type='text/javascript', src='/js/bootstrap.min.js')
 	body
-		header
-			.container
-				nav.navbar.navbar-default.navbar-fixed-top(role='navigation')
-						.navbar-header
-							button(type='button', class='navbar-toggle', data-toggle='collapse', data-target='#navbar-collapse')
-								span.sr-only
-									Toggle Navigation
-						span.icon-bar
+		.container-fluid
+			.row
+				.col-xs-12.col-md-12.col-lg-12
+					nav.navbar.navbar-default(role='navigation')
+						.container-fluid
+							.navbar-header
+								button(type='button', class='navbar-toggle', data-toggle='collapse', data-target='#navbar-collapse')
+									i.glyphicon.glyphicon-th
+									span.sr-only
+										Toggle Navigation
 								a.navbar-brand(href='/') MPG Calc
-								.collapse.navbar-collapse#navbar-collapse
-									ul.nav.navbar-nav
-										li
-											a(href='/') Home
-										li.dropdown
-											a.dropdown-toggle(href='#', data-toggle='dropdown') Resources <b class='caret'></b>
-												ul.dropdown-menu
-													li
-														a(href='/search/') Search
-										li.dropdown
-											a.dropdown-toggle(href='#', data-toggle='dropdown') Admin <b class='caret'></b>
-												ul.dropdown-menu
-													li
-														a(href='/stats/view/') Stats
-													li
-														a(href='/vehicles/vehicle/add/') Add vehicle
-													li
-														a(href='/vehicles/view/') View vehicles
-		.container#body
+							.collapse.navbar-collapse#navbar-collapse
+								ul.nav.navbar-nav
+									li
+										a(href='/') Home
+									li
+										a(href='/stats/view/') Stats
+									li
+										a(href='/vehicles/vehicle/add/') Add vehicle
+									li
+										a(href='/vehicles/view/') View vehicles
+		.container-fluid
 			block content
